@@ -2,9 +2,9 @@ from fastapi import APIRouter, Depends, HTTPException
 from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError
-import green_thumb.db as db
-import green_thumb.db.models as models
-import green_thumb.db.schemas as schemas
+import green_thumb.common.db as db
+import green_thumb.common.db.models as models
+import green_thumb.common.db.schemas as schemas
 
 router = APIRouter(prefix="/plants")
 

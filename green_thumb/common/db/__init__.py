@@ -16,9 +16,11 @@ def get_db():
 
 @contextmanager
 def get_db_scoped():
-    db_session = scoped_session(SessionLocal)
-    yield db_session
-    db_session.close()
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
 
 def get_database(*args, **kwargs):
     engine = create_engine(*args, **kwargs)

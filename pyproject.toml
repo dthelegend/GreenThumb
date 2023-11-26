@@ -19,4 +19,5 @@ requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
-main = "green_thumb.main:main"
+api = "green_thumb.api:main"
+lorax = "green_thumb.lorax:main"
