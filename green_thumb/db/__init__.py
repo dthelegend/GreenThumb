@@ -1,6 +1,7 @@
+from contextlib import contextmanager
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import sessionmaker, scoped_session
 from sqlalchemy_utils import database_exists, create_database
 
 SQLALCHEMY_DATABASE_URL = "sqlite:///./sql_app.db"
@@ -12,6 +13,12 @@ def get_db():
         yield db
     finally:
         db.close()
+
+@contextmanager
+def get_db_scoped():
+    db_session = scoped_session(SessionLocal)
+    yield db_session
+    db_session.close()
 
 def get_database(*args, **kwargs):
     engine = create_engine(*args, **kwargs)

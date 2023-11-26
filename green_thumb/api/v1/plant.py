@@ -9,8 +9,8 @@ import green_thumb.db.schemas as schemas
 router = APIRouter(prefix="/plants")
 
 @router.get("/list")
-async def read_plant_list(database: Session = Depends(db.get_db)) -> list[schemas.Plant]:
-    plants = database.query(models.Plant).all()
+async def read_plant_data(database: Session = Depends(db.get_db)) -> list[schemas.PlantList]:
+    plants = list(schemas.PlantList(id=x.id, name=x.name, description=x.description, latest_data=x.data.first()) for x in database.query(models.Plant).all())
     return plants
 
 @router.get("/{plant_id}")

@@ -23,6 +23,13 @@ class PlantCreate(PlantBase):
 class PlantUpdate(PlantBase):
     id: int
 
+class PlantList(PlantBase):
+    id: int
+    latest_data: PlantDataPointBase
+
+    class Config:
+        from_attributes = True
+
 class Plant(PlantBase):
     id: int
     data: list[PlantDataPoint] = []

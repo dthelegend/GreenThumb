@@ -12,7 +12,7 @@ fastapi = "^0.104.1"
 uvicorn = "^0.24.0.post1"
 sqlalchemy-utils = "^0.41.1"
 pydantic = "^2.5.2"
-llama = {git = "https://github.com/facebookresearch/llama.git"}
+llama-cpp-python = "^0.2.19"
 
 [build-system]
 requires = ["poetry-core"]
