@@ -1,7 +1,5 @@
-from numpy import average
-from redis import WatchError
 from green_thumb.db.models import Plant, PlantDataPoint
-#This file should conver the current data into extracted information
+#This file should convert the current data into extracted information
 
 def analyzeTemp(averageTemp, maxTemp, minTemp):
     tempRange = (maxTemp - minTemp) / 2
