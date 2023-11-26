@@ -32,7 +32,7 @@ def add_interaction(next_input: str):
     return out['content']
 
 def speak(severity, text):
-    print(f"Saying: {text}")
+    print(f"Saying: \"{text}\"")
     # subprocess.run(["spd-say", "-w", text])
 
 PLANT_ID = 1
