@@ -19,10 +19,12 @@ def add_interaction(next_input: str):
     interact_log.append({"role": "user", "content": next_input})
     dialogs = [prompt, *interact_log]
 
+    print("Generating guy")
     result = llm.create_chat_completion(
         messages = dialogs,
         max_tokens= 512 // (interact_log.maxlen + 1)
     )
+    print("Guy generated")
 
     out = {"role": result['choices'][0]['message']["role"], "content": result['choices'][0]['message']["content"]}
     interact_log.append(out)
@@ -31,12 +33,10 @@ def add_interaction(next_input: str):
 
 def speak(severity, text):
     print(f"Saying: {text}")
-    subprocess.run(["spd-say", "-w", text])
-
-    bytes(text)
+    # subprocess.run(["spd-say", "-w", text])
 
 PLANT_ID = 1
-def e2e_interact(speak: bool):
+def e2e_interact(should_speak: bool):
     values = green_thumb.lorax.emotion.recv_message()
     if values is None:
         return
@@ -49,7 +49,7 @@ def e2e_interact(speak: bool):
         severity, problems  = analyze(db.query(Plant).get(PLANT_ID))
     problem_string = ", ".join(problems)
 
-    if speak:
+    if should_speak:
         out = add_interaction(f"{severity} {problem_string}")
         speak(severity, out)
         green_thumb.lorax.emotion.send_message(severity, out)
