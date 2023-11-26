@@ -15,7 +15,7 @@ pydantic = "^2.5.2"
 llama-cpp-python = "^0.2.19"
 pyserial = "^3.5"
 
-[build-system]
+[build-system] 
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
