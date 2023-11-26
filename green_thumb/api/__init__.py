@@ -1,5 +1,4 @@
 from fastapi import FastAPI
-import fire
 import uvicorn
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import RedirectResponse
