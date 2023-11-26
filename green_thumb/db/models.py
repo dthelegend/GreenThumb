@@ -1,4 +1,6 @@
 from typing import List
+
+from click import INT
 from sqlalchemy import Column, DateTime, Float, ForeignKey, Integer, String
 from sqlalchemy.orm import Mapped, declarative_base, relationship, mapped_column
 from sqlalchemy.sql import func
@@ -12,6 +14,18 @@ class Plant(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String, unique=True)
     description = Column(String)
+
+    baseWaterLevel = Column(Integer) # This is the water level when dry!    
+    waterMin = Column(Integer) # How much water is needed in 24h period
+    waterMax = Column(Integer) # How much water is needed to drown the plant
+
+    lightRequirment = Column(Integer) # How much light is needed in 24h period
+
+    minTemperature = Column(Float)
+    maxTemperature = Column(Float)
+    minHumididty = Column(Float)
+    maxHumididty  = Column(Float)
+
     data: Mapped[List["PlantDataPoint"]] = relationship()
 
 class PlantDataPoint(Base):
