@@ -2,6 +2,7 @@ from collections import deque
 
 from sqlalchemy import values
 from green_thumb.common.db import get_db_scoped
+from green_thumb.common.db import models
 from green_thumb.common.db.models import Plant
 from green_thumb.lorax.hpi import llm
 from green_thumb.lorax.proc import analyze
@@ -37,9 +38,11 @@ def speak(severity, text):
 PLANT_ID = 1
 def e2e_interact():
     values = green_thumb.lorax.emotion.recv_message()
+    if values is None:
+        return
     with get_db_scoped() as db:
-        plant = db.query(Plant).where(Plant.id == PLANT_ID)
-        plant.update(**values)
+        x = models.PlantDataPoint(plant_id= PLANT_ID, **values)
+        db.add(x)
         db.commit()
         db.refresh()
         

@@ -7,10 +7,12 @@ ser = serial.Serial(SERIAL_PATH)
 ser.timeout = None
 
 def send_message(sev: int, text: str):
-    ser.write(str.encode(sev) + text + '\0')
+    ser.write(str.encode(sev) + text + '\x00')
 
 def recv_message():
     b = ser.readline()
+
+    print(f"Got message {b}")
 
     try:
         return json.loads(b)
