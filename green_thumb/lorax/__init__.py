@@ -1,4 +1,6 @@
 from collections import deque
+
+from sqlalchemy import values
 from green_thumb.common.db import get_db_scoped
 from green_thumb.common.db.models import Plant
 from green_thumb.lorax.hpi import llm
@@ -6,6 +8,7 @@ from green_thumb.lorax.proc import analyze
 from green_thumb.common.db.models import Plant
 from time import sleep as zzz
 import subprocess
+import green_thumb.lorax.emotion
 
 prompt = {"role": "system", "content": "You are a sentient plant. The user will tell you how you feel on a scale from 1 to 8, followed by the currrent problems you the plant are facing. Respond with a first-person remark about your care"}
 
@@ -25,19 +28,25 @@ def add_interaction(next_input: str):
 
     return out['content']
 
-def speak(text):
+def speak(severity, text):
     print(f"Saying: {text}")
     subprocess.run(["spd-say", "-w", text])
 
+    bytes(text)
+
 PLANT_ID = 1
 def e2e_interact():
+    values = green_thumb.lorax.emotion.recv_message()
     with get_db_scoped() as db:
-        plant = db.query(Plant).get(PLANT_ID)
+        plant = db.query(Plant).where(Plant.id == PLANT_ID)
+        plant.update(**values)
+        db.commit()
+        db.refresh()
 
-        p, problems  = analyze(plant)
+        severity, problems  = analyze(plant)
     problem_string = ", ".join(problems)
-    out = add_interaction(f"{p} {problem_string}")
-    speak(out)
+    out = add_interaction(f"{severity} {problem_string}")
+    speak(severity, out)
 
 def main():
     print("Running Lorax...")

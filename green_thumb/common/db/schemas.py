@@ -36,7 +36,7 @@ class PlantUpdate(PlantBase):
 
 class PlantList(PlantBase):
     id: int
-    latest_data: PlantDataPointBase
+    latest_data: PlantDataPointBase | None
 
     class Config:
         from_attributes = True

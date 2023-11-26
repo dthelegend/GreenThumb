@@ -10,7 +10,7 @@ router = APIRouter(prefix="/plants")
 
 @router.get("/list")
 async def read_plant_data(database: Session = Depends(db.get_db)) -> list[schemas.PlantList]:
-    plants = list(schemas.PlantList(id=x.id, name=x.name, description=x.description, latest_data=x.data.first()) for x in database.query(models.Plant).all())
+    plants = list(schemas.PlantList(id=x.id, name=x.name, description=x.description, latest_data=x.data[0]) for x in database.query(models.Plant).all())
     return plants
 
 @router.get("/{plant_id}")
