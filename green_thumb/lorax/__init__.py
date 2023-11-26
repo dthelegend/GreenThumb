@@ -17,7 +17,7 @@ def add_interaction(next_input: str):
 
     result = llm.create_chat_completion(
         messages = dialogs,
-        max_tokens= 512 // interact_log.maxlen
+        max_tokens= 512 // (interact_log.maxlen + 1)
     )
 
     out = {"role": result['choices'][0]['message']["role"], "content": result['choices'][0]['message']["content"]}
@@ -33,6 +33,7 @@ PLANT_ID = 1
 def e2e_interact():
     with get_db_scoped() as db:
         plant = db.query(Plant).get(PLANT_ID)
+
         p, problems  = analyze(plant)
     problem_string = ", ".join(problems)
     out = add_interaction(f"{p} {problem_string}")
