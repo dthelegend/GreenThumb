@@ -3,7 +3,6 @@
 # SPDX-License-Identifier: MIT
 # Modified by Jonathan Seyfert, 2022-01-22
 # to keep code from crashing when WiFi or IP is unavailable
-from subprocess import Popen, PIPE
 from time import sleep, perf_counter
 from datetime import datetime
 import board
