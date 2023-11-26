@@ -47,12 +47,14 @@ def e2e_interact(should_speak: bool):
         db.commit()
         
         severity, problems  = analyze(db.query(Plant).get(PLANT_ID))
-    problem_string = ", ".join(problems)
 
     if should_speak:
+        problem_string = ", ".join(problems)
         out = add_interaction(f"{severity} {problem_string}")
         speak(severity, out)
         green_thumb.lorax.emotion.send_message(severity, out)
+    else:
+        green_thumb.lorax.emotion.send_message(severity, "")
 
 def main():
     print("Running Lorax...")
