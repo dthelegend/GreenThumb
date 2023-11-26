@@ -10,7 +10,7 @@ def send_message(sev: int, text: str):
     ser.write(str.encode(sev) + text + '\0')
 
 def recv_message():
-    b = ser.read_until(b'\x00')
+    b = ser.readline()
 
     try:
         return json.loads(b)
