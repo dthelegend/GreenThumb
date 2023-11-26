@@ -36,7 +36,7 @@ def speak(severity, text):
     bytes(text)
 
 PLANT_ID = 1
-def e2e_interact():
+def e2e_interact(speak: bool):
     values = green_thumb.lorax.emotion.recv_message()
     if values is None:
         return
@@ -48,13 +48,18 @@ def e2e_interact():
         
         severity, problems  = analyze(db.query(Plant).get(PLANT_ID))
     problem_string = ", ".join(problems)
-    out = add_interaction(f"{severity} {problem_string}")
-    speak(severity, out)
-    green_thumb.lorax.emotion.send_message(severity, out)
+
+    if speak:
+        out = add_interaction(f"{severity} {problem_string}")
+        speak(severity, out)
+        green_thumb.lorax.emotion.send_message(severity, out)
 
 def main():
     print("Running Lorax...")
+    i = 0
     while True:
         print("loraxxxxxx")
-        e2e_interact()
+        i %= 100
+        e2e_interact(i == 0)
         zzz(5)
+        i += 1
