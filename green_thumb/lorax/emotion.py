@@ -12,9 +12,7 @@ def send_message(sev: int, text: str):
 def recv_message():
     b = ser.readline()
 
-    print(f"Got message {b}")
-
     try:
         return json.loads(b)
     except ValueError:
-        pass
+        print(f"Failed to load message {b}")

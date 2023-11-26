@@ -40,6 +40,7 @@ def e2e_interact():
     values = green_thumb.lorax.emotion.recv_message()
     if values is None:
         return
+    print(values)
     with get_db_scoped() as db:
         x = models.PlantDataPoint(plant_id= PLANT_ID, **values)
         db.add(x)
