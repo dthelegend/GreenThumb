@@ -42,11 +42,12 @@ def e2e_interact():
         plant.update(**values)
         db.commit()
         db.refresh()
-
-        severity, problems  = analyze(plant)
+        
+        severity, problems  = analyze(db.get(Plant).get(PLANT_ID))
     problem_string = ", ".join(problems)
     out = add_interaction(f"{severity} {problem_string}")
     speak(severity, out)
+    green_thumb.lorax.emotion.send_message(severity, out)
 
 def main():
     print("Running Lorax...")
