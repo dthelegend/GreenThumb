@@ -32,7 +32,7 @@ def analyzeHumi(averageHumi, maxHumi, minHumi):
         humiState = ("TOO DRY", 1)
     elif  minHumi < averageHumi< maxHumi:
         #Plant temp is okay!
-        humiStatete = ("PERFECT", 0)
+        humiState = ("PERFECT", 0)
     elif maxHumi + humiRange > averageHumi > maxHumi:
         #Plant is too hot!
         humiState = ("TOO HUMID", 1)
