@@ -46,7 +46,7 @@ def e2e_interact():
         db.add(x)
         db.commit()
         
-        severity, problems  = analyze(db.get(Plant).get(PLANT_ID))
+        severity, problems  = analyze(db.query(Plant).get(PLANT_ID))
     problem_string = ", ".join(problems)
     out = add_interaction(f"{severity} {problem_string}")
     speak(severity, out)
