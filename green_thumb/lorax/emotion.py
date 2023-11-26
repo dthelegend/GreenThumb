@@ -1,12 +1,12 @@
 import serial
 import json
 
-SERIAL_PATH = ""
+SERIAL_PATH = '/dev/serial/by-id/usb-Arduino__www.arduino.cc__0042_95036303235351909121-if00'
 
 ser = serial.Serial(SERIAL_PATH)
 
 def send_message(sev: int, text: str):
-    ser.write(bytes(sev) + bytes(text))
+    ser.write(str.encode(sev) + text + '\0')
 
 def recv_message():
     b = ser.read_until('\0')
