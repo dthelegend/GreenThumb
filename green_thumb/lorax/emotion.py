@@ -9,7 +9,7 @@ def send_message(sev: int, text: str):
     ser.write(str.encode(sev) + text + '\0')
 
 def recv_message():
-    b = ser.read_until('\0')
+    b = ser.read_until(b'\x00', timeout=None)
 
     try:
         return json.loads(b)
