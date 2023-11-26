@@ -1,12 +1,21 @@
+from contextlib import contextmanager
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import sessionmaker, scoped_session
 from sqlalchemy_utils import database_exists, create_database
 
 SQLALCHEMY_DATABASE_URL = "sqlite:///./sql_app.db"
 
 # Dependency
 def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
+@contextmanager
+def get_db_scoped():
     db = SessionLocal()
     try:
         yield db

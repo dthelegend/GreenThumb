@@ -161,4 +161,4 @@ cython_debug/
 
 .python-version
 *.db
-llama/
+*.gguf

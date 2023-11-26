@@ -4,7 +4,7 @@ from click import INT
 from sqlalchemy import Column, DateTime, Float, ForeignKey, Integer, String
 from sqlalchemy.orm import Mapped, declarative_base, relationship, mapped_column
 from sqlalchemy.sql import func
-from green_thumb.db import engine
+from green_thumb.common.db import engine
 
 Base = declarative_base()
 
@@ -15,16 +15,16 @@ class Plant(Base):
     name = Column(String, unique=True)
     description = Column(String)
 
-    baseWaterLevel = Column(Integer) # This is the water level when dry!    
-    waterMin = Column(Integer) # How much water is needed in 24h period
-    waterMax = Column(Integer) # How much water is needed to drown the plant
+    base_water_level = Column(Integer) # This is the water level when dry!    
+    water_min = Column(Integer) # How much water is needed in 24h period
+    water_max = Column(Integer) # How much water is needed to drown the plant
 
-    lightRequirment = Column(Integer) # How much light is needed in 24h period
+    light_requirment = Column(Integer) # How much light is needed in 24h period
 
-    minTemperature = Column(Float)
-    maxTemperature = Column(Float)
-    minHumididty = Column(Float)
-    maxHumididty  = Column(Float)
+    min_temperature = Column(Float)
+    max_temperature = Column(Float)
+    min_humididty = Column(Float)
+    max_humididty  = Column(Float)
 
     data: Mapped[List["PlantDataPoint"]] = relationship()
 
