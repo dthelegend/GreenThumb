@@ -45,7 +45,6 @@ def e2e_interact():
         x = models.PlantDataPoint(plant_id= PLANT_ID, **values)
         db.add(x)
         db.commit()
-        db.refresh()
         
         severity, problems  = analyze(db.get(Plant).get(PLANT_ID))
     problem_string = ", ".join(problems)
