@@ -7,7 +7,7 @@ ser = serial.Serial(SERIAL_PATH)
 ser.timeout = None
 
 def send_message(sev: int, text: str):
-    ser.write(str.encode(sev) + text + '\x00')
+    ser.write(sev.to_bytes(1, 'big') + bytes(text, encoding='utf-8') + b'\x00')
 
 def recv_message():
     b = ser.readline()
