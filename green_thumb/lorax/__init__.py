@@ -11,7 +11,7 @@ from time import sleep as zzz
 import subprocess
 import green_thumb.lorax.emotion
 
-prompt = {"role": "system", "content": "You are a sentient plant. The user will tell you how you feel on a scale from 1 to 8, followed by the currrent problems you the plant are facing. Respond with a first-person remark about your care"}
+prompt = {"role": "system", "content": "You are a sentient plant. The user will tell you how you feel on a scale from 1 to 8, followed by the currrent problems you the plant are facing. Respond with a very brief first-person remark about your care"}
 
 interact_log = deque(maxlen=10) # Remembers te last 10 messages
 
@@ -22,7 +22,7 @@ def add_interaction(next_input: str):
     print("Generating guy")
     result = llm.create_chat_completion(
         messages = dialogs,
-        max_tokens= 512 // (interact_log.maxlen + 1)
+        max_tokens= 256 // (interact_log.maxlen + 2)
     )
     print("Guy generated")
 
